@@ -80,10 +80,15 @@
       ctx.fillStyle = "#fffaf6";
       ctx.fillRect(0, 0, 300, 300);
 
-      for (let i = 0; i < snake.length; i++) {
-        ctx.fillStyle = i == 0 ? "#f17c9b" : "#f8b4c0";
-        ctx.fillRect(snake[i].x, snake[i].y, box, box);
-      }
+     const rainbowColors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93", "#ff99c8"];
+
+for (let i = 0; i < snake.length; i++) {
+  const color = rainbowColors[i % rainbowColors.length];
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.roundRect(snake[i].x, snake[i].y, box, box, 5);
+  ctx.fill();
+}
 
       ctx.fillStyle = "#8b5cf6";
       ctx.fillRect(food.x, food.y, box, box);
