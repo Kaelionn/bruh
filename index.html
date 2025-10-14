@@ -22,26 +22,29 @@
     }
 
     .controls {
-      margin-top: 20px;
+      margin-top: 25px;
       display: grid;
-      grid-template-columns: repeat(3, 60px);
-      gap: 10px;
+      grid-template-columns: repeat(3, 80px);
+      gap: 15px;
       justify-items: center;
     }
 
     button {
       background: #fcd5ce;
       border: none;
-      border-radius: 10px;
-      padding: 10px;
-      font-size: 18px;
+      border-radius: 15px;
+      width: 80px;
+      height: 80px;
+      font-size: 30px;
       color: #444;
-      box-shadow: 0 3px 6px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      transition: all 0.15s ease;
     }
 
     button:active {
       background: #f8b4c0;
       transform: scale(0.95);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -62,6 +65,10 @@
     const ctx = canvas.getContext("2d");
     const box = 15;
 
+    // 🎵 Suara
+    const eatSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_7c07b5d5b2.mp3?filename=click-124467.mp3");
+    const gameOverSound = new Audio("https://cdn.pixabay.com/download/audio/2021/08/04/audio_4a4e1907da.mp3?filename=error-126627.mp3");
+
     let snake = [{ x: 5 * box, y: 5 * box }];
     let direction = null;
     let food = {
@@ -69,26 +76,24 @@
       y: Math.floor(Math.random() * 19) * box
     };
 
-    // Kontrol via tombol di layar
+    // Tombol kontrol
     document.getElementById("up").onclick = () => { if (direction !== "DOWN") direction = "UP"; };
     document.getElementById("down").onclick = () => { if (direction !== "UP") direction = "DOWN"; };
     document.getElementById("left").onclick = () => { if (direction !== "RIGHT") direction = "LEFT"; };
     document.getElementById("right").onclick = () => { if (direction !== "LEFT") direction = "RIGHT"; };
 
-    // Gambar ulang game
     function draw() {
       ctx.fillStyle = "#fffaf6";
       ctx.fillRect(0, 0, 300, 300);
 
-     const rainbowColors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93", "#ff99c8"];
-
-for (let i = 0; i < snake.length; i++) {
-  const color = rainbowColors[i % rainbowColors.length];
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.roundRect(snake[i].x, snake[i].y, box, box, 5);
-  ctx.fill();
-}
+      const rainbowColors = ["#ff595e", "#ffca3a", "#8ac926", "#1982c4", "#6a4c93", "#ff99c8"];
+      for (let i = 0; i < snake.length; i++) {
+        const color = rainbowColors[i % rainbowColors.length];
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.roundRect(snake[i].x, snake[i].y, box, box, 5);
+        ctx.fill();
+      }
 
       ctx.fillStyle = "#8b5cf6";
       ctx.fillRect(food.x, food.y, box, box);
@@ -101,7 +106,10 @@ for (let i = 0; i < snake.length; i++) {
       if (direction === "RIGHT") headX += box;
       if (direction === "DOWN") headY += box;
 
+      // Jika makan makanan
       if (headX === food.x && headY === food.y) {
+        eatSound.currentTime = 0; // reset suara biar bisa langsung diputar ulang
+        eatSound.play();
         food = {
           x: Math.floor(Math.random() * 19) * box,
           y: Math.floor(Math.random() * 19) * box
@@ -110,14 +118,16 @@ for (let i = 0; i < snake.length; i++) {
         snake.pop();
       }
 
-      let newHead = { x: headX, y: headY };
+      const newHead = { x: headX, y: headY };
 
+      // Jika nabrak dinding atau diri sendiri
       if (
         headX < 0 || headX >= 300 || headY < 0 || headY >= 300 ||
         snake.some(s => s.x === newHead.x && s.y === newHead.y)
       ) {
         clearInterval(game);
-        alert("Nub 🥀💔");
+        gameOverSound.play();
+        setTimeout(() => alert("Nub 🥀💔"), 100);
       }
 
       snake.unshift(newHead);
