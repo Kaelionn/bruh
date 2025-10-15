@@ -1,251 +1,170 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Laundry Yuk — Self Service</title>
   <style>
     body {
-      font-family: "Segoe UI", sans-serif;
-      background-color: #ffffff;
-      color: #333;
+      font-family: Arial, sans-serif;
       margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background-color: #3cb371;
-      color: white;
+      background: #f0f0f0;
       text-align: center;
-      padding: 1rem 0;
-      font-size: 1.5rem;
-      font-weight: bold;
-      letter-spacing: 0.5px;
+      color: #222;
+      overflow-x: hidden;
     }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
+    header {
+      background: #2e7d32;
+      color: white;
+      padding: 15px;
+      font-size: 20px;
     }
-
+    .menu {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+      gap: 20px;
+    }
+    .menu button {
+      background: #43a047;
+      color: white;
+      border: none;
+      padding: 20px 40px;
+      font-size: 22px;
+      border-radius: 15px;
+      cursor: pointer;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+      transition: transform 0.2s;
+    }
+    .menu button:hover {
+      transform: scale(1.05);
+    }
+    .card-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 85vh;
+      position: relative;
+      animation: fadeIn 0.4s ease;
+    }
     .card {
-      background-color: #f8fff8;
-      border: 1px solid #cdeac0;
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      padding: 20px;
+      width: 85%;
+      max-width: 400px;
+      text-align: left;
+      animation: fadeIn 0.4s ease;
+    }
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 15px;
+    }
+    .controls button {
+      background: #43a047;
+      border: none;
+      color: white;
+      padding: 10px 15px;
       border-radius: 10px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-      padding: 1rem;
-    }
-
-    .card h2 {
-      color: #2e8b57;
-      margin-top: 0;
-    }
-
-    .price {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: #006400;
-    }
-
-    button, input[type="radio"] {
       cursor: pointer;
     }
-
-    .extras, .temperature {
-      margin-top: 0.5rem;
+    .back-btn {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: #2e7d32;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
     }
-
-    .extras label, .temperature label {
-      display: block;
-      margin-top: 0.25rem;
-    }
-
-    .desc {
-      font-size: 0.85rem;
-      color: #555;
-      margin-top: 0.25rem;
-    }
-
-    .slider-section {
-      margin-top: 1rem;
-    }
-
-    input[type="range"] {
-      width: 100%;
-    }
-
-    .result {
-      margin-top: 0.5rem;
-      font-weight: bold;
-      color: #006400;
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
     }
   </style>
 </head>
 <body>
+
   <header>Laundry Yuk — Self Service</header>
 
-  <div class="container" id="washers">
-    <div class="card">
-      <h2>Washer 1</h2>
-      <p class="price">Normal: Rp25.000</p>
-      <div class="extras">
-        <label><input type="checkbox" class="extra-wash" data-washer="1" /> Extra Wash (+Rp7.500)</label>
-        <p class="desc">Menambah waktu pencucian agar noda lebih bersih.</p>
-        <label><input type="checkbox" class="extra-rinse" data-washer="1" /> Extra Rinse (+Rp5.000)</label>
-        <p class="desc">Menambah bilasan agar pakaian lebih bebas deterjen.</p>
-      </div>
-      <p class="result" id="washer-result-1">Total: Rp25.000</p>
-    </div>
-
-    <div class="card">
-      <h2>Washer 2</h2>
-      <p class="price">Normal: Rp25.000</p>
-      <div class="extras">
-        <label><input type="checkbox" class="extra-wash" data-washer="2" /> Extra Wash (+Rp7.500)</label>
-        <p class="desc">Menambah waktu pencucian agar noda lebih bersih.</p>
-        <label><input type="checkbox" class="extra-rinse" data-washer="2" /> Extra Rinse (+Rp5.000)</label>
-        <p class="desc">Menambah bilasan agar pakaian lebih bebas deterjen.</p>
-      </div>
-      <p class="result" id="washer-result-2">Total: Rp25.000</p>
-    </div>
-
-    <div class="card">
-      <h2>Washer 3</h2>
-      <p class="price">Normal: Rp25.000</p>
-      <div class="extras">
-        <label><input type="checkbox" class="extra-wash" data-washer="3" /> Extra Wash (+Rp7.500)</label>
-        <p class="desc">Menambah waktu pencucian agar noda lebih bersih.</p>
-        <label><input type="checkbox" class="extra-rinse" data-washer="3" /> Extra Rinse (+Rp5.000)</label>
-        <p class="desc">Menambah bilasan agar pakaian lebih bebas deterjen.</p>
-      </div>
-      <p class="result" id="washer-result-3">Total: Rp25.000</p>
-    </div>
-
-    <div class="card">
-      <h2>Washer 4 (Kapasitas Besar)</h2>
-      <p class="price">Normal: Rp30.000</p>
-      <div class="extras">
-        <label><input type="checkbox" class="extra-wash" data-washer="4" /> Extra Wash (+Rp10.000)</label>
-        <p class="desc">Menambah waktu pencucian agar noda lebih bersih.</p>
-        <label><input type="checkbox" class="extra-rinse" data-washer="4" /> Extra Rinse (+Rp7.500)</label>
-        <p class="desc">Menambah bilasan agar pakaian lebih bebas deterjen.</p>
-      </div>
-      <p class="result" id="washer-result-4">Total: Rp30.000</p>
-    </div>
+  <div class="menu" id="mainMenu">
+    <button onclick="openCategory('washer')">🧺 Washer</button>
+    <button onclick="openCategory('dryer')">🌬️ Dryer</button>
   </div>
 
-  <div class="container" id="dryers">
-    <div class="card">
-      <h2>Dryer 5</h2>
-      <p class="price">Rp15.000 = 13 menit</p>
-      <div class="slider-section">
-        <input type="range" min="13" max="60" value="13" id="slider-5" />
-        <p class="result" id="result-5">Durasi: 13 menit — Harga: Rp15.000</p>
-      </div>
-      <div class="temperature">
-        <label><input type="radio" name="temp5" checked /> Low Temp</label>
-        <p class="desc">Untuk bahan lembut seperti sutra.</p>
-        <label><input type="radio" name="temp5" /> Med Temp</label>
-        <p class="desc">Untuk pakaian sehari-hari.</p>
-        <label><input type="radio" name="temp5" /> High Temp</label>
-        <p class="desc">Untuk kain tebal seperti handuk atau jeans.</p>
-        <label><input type="radio" name="temp5" /> Delicate</label>
-        <p class="desc">Untuk pakaian sensitif agar tidak rusak.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Dryer 6</h2>
-      <p class="price">Rp15.000 = 13 menit</p>
-      <div class="slider-section">
-        <input type="range" min="13" max="60" value="13" id="slider-6" />
-        <p class="result" id="result-6">Durasi: 13 menit — Harga: Rp15.000</p>
-      </div>
-      <div class="temperature">
-        <label><input type="radio" name="temp6" checked /> Low Temp</label>
-        <p class="desc">Untuk bahan lembut seperti sutra.</p>
-        <label><input type="radio" name="temp6" /> Med Temp</label>
-        <p class="desc">Untuk pakaian sehari-hari.</p>
-        <label><input type="radio" name="temp6" /> High Temp</label>
-        <p class="desc">Untuk kain tebal seperti handuk atau jeans.</p>
-        <label><input type="radio" name="temp6" /> Delicate</label>
-        <p class="desc">Untuk pakaian sensitif agar tidak rusak.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Dryer 7</h2>
-      <p class="price">Rp15.000 = 13 menit</p>
-      <div class="slider-section">
-        <input type="range" min="13" max="60" value="13" id="slider-7" />
-        <p class="result" id="result-7">Durasi: 13 menit — Harga: Rp15.000</p>
-      </div>
-      <div class="temperature">
-        <label><input type="radio" name="temp7" checked /> Low Temp</label>
-        <p class="desc">Untuk bahan lembut seperti sutra.</p>
-        <label><input type="radio" name="temp7" /> Med Temp</label>
-        <p class="desc">Untuk pakaian sehari-hari.</p>
-        <label><input type="radio" name="temp7" /> High Temp</label>
-        <p class="desc">Untuk kain tebal seperti handuk atau jeans.</p>
-        <label><input type="radio" name="temp7" /> Delicate</label>
-        <p class="desc">Untuk pakaian sensitif agar tidak rusak.</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Dryer 8</h2>
-      <p class="price">Rp15.000 = 13 menit</p>
-      <div class="slider-section">
-        <input type="range" min="13" max="60" value="13" id="slider-8" />
-        <p class="result" id="result-8">Durasi: 13 menit — Harga: Rp15.000</p>
-      </div>
-      <div class="temperature">
-        <label><input type="radio" name="temp8" checked /> Low Temp</label>
-        <p class="desc">Untuk bahan lembut seperti sutra.</p>
-        <label><input type="radio" name="temp8" /> Med Temp</label>
-        <p class="desc">Untuk pakaian sehari-hari.</p>
-        <label><input type="radio" name="temp8" /> High Temp</label>
-        <p class="desc">Untuk kain tebal seperti handuk atau jeans.</p>
-        <label><input type="radio" name="temp8" /> Delicate</label>
-        <p class="desc">Untuk pakaian sensitif agar tidak rusak.</p>
-      </div>
+  <div class="card-container" id="cardContainer">
+    <button class="back-btn" onclick="backToMenu()">← Kembali</button>
+    <div class="card" id="cardContent"></div>
+    <div class="controls">
+      <button onclick="prevCard()">⬅️ Sebelumnya</button>
+      <button onclick="nextCard()">➡️ Berikutnya</button>
     </div>
   </div>
 
   <script>
-    // Washer price calculation
-    document.querySelectorAll(".extra-wash, .extra-rinse").forEach(input => {
-      input.addEventListener("change", () => {
-        const washerId = input.dataset.washer;
-        let basePrice = washerId === "4" ? 30000 : 25000;
-        const wash = document.querySelector(`.extra-wash[data-washer="${washerId}"]`).checked;
-        const rinse = document.querySelector(`.extra-rinse[data-washer="${washerId}"]`).checked;
+    const data = {
+      washer: [
+        { title: "Washer 1", price: "Rp25.000", desc: "Menambah waktu pencucian agar noda lebih bersih. Menambah bilasan agar pakaian bebas deterjen." },
+        { title: "Washer 2", price: "Rp25.000", desc: "Sama seperti Washer 1, cocok untuk pakaian harian." },
+        { title: "Washer 3", price: "Rp30.000", desc: "Kapasitas besar, cocok untuk selimut atau jaket tebal." }
+      ],
+      dryer: [
+        { title: "Dryer 1", price: "Rp15.000 = 13 menit", desc: "Untuk bahan lembut seperti sutra." },
+        { title: "Dryer 2", price: "Rp15.000 = 13 menit", desc: "Untuk pakaian sehari-hari." },
+        { title: "Dryer 3", price: "Rp15.000 = 13 menit", desc: "Untuk kain tebal seperti handuk atau jeans." }
+      ]
+    };
 
-        if (washerId === "4") {
-          if (wash) basePrice += 10000;
-          if (rinse) basePrice += 7500;
-        } else {
-          if (wash) basePrice += 7500;
-          if (rinse) basePrice += 5000;
-        }
+    let currentCategory = '';
+    let currentIndex = 0;
 
-        document.getElementById(`washer-result-${washerId}`).textContent = `Total: Rp${basePrice.toLocaleString("id-ID")}`;
-      });
-    });
-
-    // Dryer price calculation
-    for (let i = 5; i <= 8; i++) {
-      const slider = document.getElementById(`slider-${i}`);
-      const result = document.getElementById(`result-${i}`);
-      slider.addEventListener("input", () => {
-        const minutes = parseInt(slider.value);
-        let price = 15000;
-        if (minutes > 13) price += (minutes - 13) * 1000;
-        result.textContent = `Durasi: ${minutes} menit — Harga: Rp${price.toLocaleString("id-ID")}`;
-      });
+    function openCategory(category) {
+      currentCategory = category;
+      currentIndex = 0;
+      document.getElementById("mainMenu").style.display = "none";
+      document.getElementById("cardContainer").style.display = "flex";
+      showCard();
     }
+
+    function backToMenu() {
+      document.getElementById("cardContainer").style.display = "none";
+      document.getElementById("mainMenu").style.display = "flex";
+    }
+
+    function showCard() {
+      const card = data[currentCategory][currentIndex];
+      document.getElementById("cardContent").innerHTML = `
+        <h2 style="color:#2e7d32;">${card.title}</h2>
+        <p><b>Harga:</b> ${card.price}</p>
+        <p>${card.desc}</p>
+      `;
+    }
+
+    function nextCard() {
+      currentIndex = (currentIndex + 1) % data[currentCategory].length;
+      showCard();
+    }
+
+    function prevCard() {
+      currentIndex = (currentIndex - 1 + data[currentCategory].length) % data[currentCategory].length;
+      showCard();
+    }
+
+    // Swipe detection
+    let startX = 0;
+    document.addEventListener('touchstart', e => startX = e.touches[0].clientX);
+    document.addEventListener('touchend', e => {
+      const endX = e.changedTouches[0].clientX;
+      if (endX - startX > 80) prevCard();
+      else if (startX - endX > 80) nextCard();
+    });
   </script>
+
 </body>
-  </html>
+</html>
