@@ -7,23 +7,24 @@
   <style>
     body {
       font-family: "Poppins", sans-serif;
-      background-color: #f7faff;
+      background-color: #f9fff9;
       color: #333;
       margin: 0;
       padding: 0;
     }
     header {
       text-align: center;
-      background: #0d6efd;
+      background: #22c55e;
       color: white;
       padding: 1.5rem 1rem;
       font-size: 1.5rem;
       font-weight: bold;
       letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
     .container {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
       gap: 20px;
       padding: 30px;
       max-width: 1200px;
@@ -40,7 +41,7 @@
       transform: translateY(-3px);
     }
     h2 {
-      color: #0d6efd;
+      color: #16a34a;
       margin-bottom: 10px;
       font-size: 1.2rem;
     }
@@ -53,14 +54,20 @@
       display: block;
       margin: 6px 0;
     }
-    input[type="checkbox"] {
+    input[type="checkbox"], input[type="radio"] {
       transform: scale(1.2);
       margin-right: 8px;
+    }
+    .desc {
+      font-size: 0.85rem;
+      color: #555;
+      margin-left: 25px;
+      margin-bottom: 6px;
     }
     .total {
       margin-top: 10px;
       font-weight: bold;
-      color: #0d6efd;
+      color: #16a34a;
     }
     .dryer-slider {
       width: 100%;
@@ -71,141 +78,17 @@
       color: #666;
     }
     .reset-btn {
-      background: #e0e7ff;
+      background: #dcfce7;
       border: none;
       border-radius: 8px;
       padding: 5px 10px;
       margin-top: 10px;
       cursor: pointer;
       font-weight: 500;
+      color: #14532d;
     }
     .reset-btn:hover {
-      background: #c7d2fe;
+      background: #bbf7d0;
     }
   </style>
-</head>
-<body>
-  <header>Laundry Yuk — Self Service Menu</header>
-
-  <!-- === WASHER SECTION === -->
-  <section class="container" id="washer-section">
-    <div class="card" data-base="25000" data-extra-wash="7500" data-extra-rinse="5000">
-      <h2>Washer 1</h2>
-      <div class="price">Harga Normal: Rp25.000</div>
-      <label><input type="checkbox" class="extra-wash" />Extra Wash (+Rp7.500)</label>
-      <label><input type="checkbox" class="extra-rinse" />Extra Rinse (+Rp5.000)</label>
-      <div class="total">Total: Rp25.000</div>
-    </div>
-
-    <div class="card" data-base="25000" data-extra-wash="7500" data-extra-rinse="5000">
-      <h2>Washer 2</h2>
-      <div class="price">Harga Normal: Rp25.000</div>
-      <label><input type="checkbox" class="extra-wash" />Extra Wash (+Rp7.500)</label>
-      <label><input type="checkbox" class="extra-rinse" />Extra Rinse (+Rp5.000)</label>
-      <div class="total">Total: Rp25.000</div>
-    </div>
-
-    <div class="card" data-base="25000" data-extra-wash="7500" data-extra-rinse="5000">
-      <h2>Washer 3</h2>
-      <div class="price">Harga Normal: Rp25.000</div>
-      <label><input type="checkbox" class="extra-wash" />Extra Wash (+Rp7.500)</label>
-      <label><input type="checkbox" class="extra-rinse" />Extra Rinse (+Rp5.000)</label>
-      <div class="total">Total: Rp25.000</div>
-    </div>
-
-    <div class="card" data-base="30000" data-extra-wash="10000" data-extra-rinse="7500">
-      <h2>Washer 4 (Lebar)</h2>
-      <div class="price">Harga Normal: Rp30.000</div>
-      <label><input type="checkbox" class="extra-wash" />Extra Wash (+Rp10.000)</label>
-      <label><input type="checkbox" class="extra-rinse" />Extra Rinse (+Rp7.500)</label>
-      <div class="total">Total: Rp30.000</div>
-    </div>
-  </section>
-
-  <!-- === DRYER SECTION === -->
-  <section class="container" id="dryer-section">
-    <div class="card dryer" data-base="15000" data-base-minutes="13">
-      <h2>Dryer 5</h2>
-      <div class="price">Harga Awal: Rp15.000 (13 menit)</div>
-      <input type="range" min="13" max="60" value="13" class="dryer-slider" />
-      <div class="note">Geser untuk atur durasi</div>
-      <div class="total">Durasi: 13 menit — Total: Rp15.000</div>
-      <button class="reset-btn">Reset</button>
-    </div>
-
-    <div class="card dryer" data-base="15000" data-base-minutes="13">
-      <h2>Dryer 6</h2>
-      <div class="price">Harga Awal: Rp15.000 (13 menit)</div>
-      <input type="range" min="13" max="60" value="13" class="dryer-slider" />
-      <div class="note">Geser untuk atur durasi</div>
-      <div class="total">Durasi: 13 menit — Total: Rp15.000</div>
-      <button class="reset-btn">Reset</button>
-    </div>
-
-    <div class="card dryer" data-base="15000" data-base-minutes="13">
-      <h2>Dryer 7</h2>
-      <div class="price">Harga Awal: Rp15.000 (13 menit)</div>
-      <input type="range" min="13" max="60" value="13" class="dryer-slider" />
-      <div class="note">Geser untuk atur durasi</div>
-      <div class="total">Durasi: 13 menit — Total: Rp15.000</div>
-      <button class="reset-btn">Reset</button>
-    </div>
-
-    <div class="card dryer" data-base="15000" data-base-minutes="13">
-      <h2>Dryer 8</h2>
-      <div class="price">Harga Awal: Rp15.000 (13 menit)</div>
-      <input type="range" min="13" max="60" value="13" class="dryer-slider" />
-      <div class="note">Geser untuk atur durasi</div>
-      <div class="total">Durasi: 13 menit — Total: Rp15.000</div>
-      <button class="reset-btn">Reset</button>
-    </div>
-  </section>
-
-  <script>
-    // === Washer Logic ===
-    document.querySelectorAll(".card").forEach((card) => {
-      const base = parseInt(card.dataset.base);
-      const extraWash = parseInt(card.dataset.extraWash);
-      const extraRinse = parseInt(card.dataset.extraRinse);
-      const totalDisplay = card.querySelector(".total");
-      const wash = card.querySelector(".extra-wash");
-      const rinse = card.querySelector(".extra-rinse");
-
-      if (wash || rinse) {
-        function updateTotal() {
-          let total = base;
-          if (wash && wash.checked) total += extraWash;
-          if (rinse && rinse.checked) total += extraRinse;
-          totalDisplay.textContent = `Total: Rp${total.toLocaleString()}`;
-        }
-        if (wash) wash.addEventListener("change", updateTotal);
-        if (rinse) rinse.addEventListener("change", updateTotal);
-      }
-    });
-
-    // === Dryer Logic ===
-    document.querySelectorAll(".dryer").forEach((dryer) => {
-      const base = parseInt(dryer.dataset.base);
-      const baseMinutes = parseInt(dryer.dataset.baseMinutes);
-      const slider = dryer.querySelector(".dryer-slider");
-      const totalDisplay = dryer.querySelector(".total");
-      const reset = dryer.querySelector(".reset-btn");
-
-      function updateDryer() {
-        const minutes = parseInt(slider.value);
-        const extraMinutes = minutes - baseMinutes;
-        const price = base + extraMinutes * 1000;
-        totalDisplay.textContent = `Durasi: ${minutes} menit — Total: Rp${price.toLocaleString()}`;
-      }
-
-      slider.addEventListener("input", updateDryer);
-      reset.addEventListener("click", () => {
-        slider.value = baseMinutes;
-        updateDryer();
-      });
-
-      updateDryer();
-    });
-  </script>
-</body>
-</html>
+</head
